@@ -29,7 +29,7 @@ public class ServerCountManager implements Listener {
                 .replace("${motd}", ping.getDescription())
                 .replace("${total}", String.valueOf(serverAmount))
                 .replace("${online}", String.valueOf(onlineAmount))
-                .replace("${color}", ChatColor.translateAlternateColorCodes('&', chosen))
+                .replace("${color}", chosen)
                 .replaceAll("\\\\n", "\n"));
         e.setResponse(ping);
     }
