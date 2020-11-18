@@ -12,7 +12,7 @@ settings:
   colors:
     percent_0:
       end: 0
-      color: red
+      color: dark_red
     percent_1:
       end: 49
       color: yellow
