@@ -32,7 +32,7 @@ public class ServersOnlineCommand extends Command {
         int serverAmount = plugin.getProxy().getServers().size();
         int onlineAmount = plugin.getCountManager().serversOnline();
         float percentOnline = Float.parseFloat(String.valueOf(onlineAmount)) / Float.parseFloat(String.valueOf(serverAmount));
-        String chosen = (percentOnline > 0.5 ? ChatColor.GREEN : percentOnline == 0.5 ? ChatColor.YELLOW : ChatColor.DARK_RED).toString();
+        String chosen = plugin.getColorsConfig().stream().filter(setting -> percentOnline >= setting.start / 100f && Float.parseFloat(String.valueOf(setting.end)) / 100f < percentOnline).findFirst().map(setting -> setting.color).orElse(ChatColor.WHITE.toString());
         sender.sendMessage(new TextComponent(ChatColors.color(plugin.getConfig().getString("messages.command")
                 .replace("${total}", String.valueOf(serverAmount))
                 .replace("${online}", String.valueOf(onlineAmount))

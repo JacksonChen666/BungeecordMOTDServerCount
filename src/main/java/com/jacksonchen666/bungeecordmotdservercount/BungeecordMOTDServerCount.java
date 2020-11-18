@@ -11,13 +11,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BungeecordMOTDServerCount extends Plugin {
-    private final Map<Integer, Map<Integer, String>> colorsConfig = new HashMap<>();
+    private final List<ColorSetting> colorsConfig = new ArrayList<>();
     private Configuration config;
     private ServerCountManager countManager;
 
@@ -30,9 +29,9 @@ public class BungeecordMOTDServerCount extends Plugin {
         for (String start : startings) {
             String color = tempColorConfig.getString(start + ".color");
             try {
-                colorsConfig.put(Integer.parseInt(start.replace("percent_", "")), new HashMap<Integer, String>() {{
-                    put(tempColorConfig.getInt(start + ".end"), color.contains("&") && color.length() == 2 ? color : ChatColor.valueOf(color.toUpperCase()).toString());
-                }});
+                colorsConfig.add(new ColorSetting(Integer.parseInt(start.replace("percent_", "")),
+                        tempColorConfig.getInt(start + ".end"),
+                        color.contains("&") && color.length() == 2 ? ChatColors.color(color) : ChatColor.valueOf(color.toUpperCase()).toString()));
             }
             catch (IllegalArgumentException e) {
                 if (e.getMessage().equals("No enum constant net.md_5.bungee.api.ChatColor." + color)) {
@@ -102,7 +101,7 @@ public class BungeecordMOTDServerCount extends Plugin {
         return config;
     }
 
-    public Map<Integer, Map<Integer, String>> getColorsConfig() {
+    public List<ColorSetting> getColorsConfig() {
         return colorsConfig;
     }
 }
