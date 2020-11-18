@@ -24,15 +24,13 @@ public class ServerCountManager implements Listener {
         ServerPing ping = e.getResponse();
         int serverAmount = plugin.getProxy().getServers().size();
         int onlineAmount = serversOnline();
-        float percentOnline = onlineAmount / serverAmount;
-        char online = ChatColor.GREEN.toString().charAt(0);
-        char half = ChatColor.YELLOW.toString().charAt(0);
-        char offline = ChatColor.DARK_RED.toString().charAt(0);
+        float percentOnline = Float.parseFloat(String.valueOf(onlineAmount)) / Float.parseFloat(String.valueOf(serverAmount));
+        String chosen = (percentOnline > 0.5 ? ChatColor.GREEN : percentOnline == 0.5 ? ChatColor.YELLOW : ChatColor.DARK_RED).toString();
         ping.setDescription(BungeecordMOTDServerCount.config.getString("messages.motd")
                 .replace("${motd}", ping.getDescription())
                 .replace("${total}", String.valueOf(serverAmount))
                 .replace("${online}", String.valueOf(onlineAmount))
-                .replace("${color}", ChatColor.translateAlternateColorCodes('&', "&" + (percentOnline >= 0.5 ? online : percentOnline > 0 ? half : offline)))
+                .replace("${color}", ChatColor.translateAlternateColorCodes('&', chosen))
                 .replaceAll("\\\\n", "\n"));
         e.setResponse(ping);
     }
