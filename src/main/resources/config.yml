@@ -1,0 +1,9 @@
+messages:
+  # The template MOTD should work fine if there's only one line used in bungeecord's config.
+  motd: '${motd}\n${color}${online}/${total} servers are online'
+  command: '${color}${online}/${total} servers are online'
+
+settings:
+  # Set amount of seconds to keep the last results.
+  cache_time: 60
+  # colors for ${color} (depending on the percentage of servers online)
