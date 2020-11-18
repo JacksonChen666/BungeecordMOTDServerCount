@@ -2,3 +2,13 @@ name: ${project.name}
 version: ${project.version}
 author: ${author}
 main: ${mainClass}
+
+commands:
+  serversonline:
+    description: Gets how many servers are online.
+    permission: BungeecordMOTDServerCount.user
+
+permissions:
+  BungeecordMOTDServerCount.user:
+    default: true
+    description: Joe's permission.
