@@ -1,6 +1,7 @@
 package com.jacksonchen666.bungeecordmotdservercount;
 
 import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.api.plugin.PluginManager;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
@@ -22,7 +23,9 @@ public class BungeecordMOTDServerCount extends Plugin {
 
     @Override
     public void onEnable() {
-        getProxy().getPluginManager().registerListener(this, new ServerCountManager(this));
+        PluginManager pl = getProxy().getPluginManager();
+        pl.registerListener(this, countManager = new ServerCountManager(this));
+        pl.registerCommand(this, new ServersOnlineCommand(this));
     }
 
     @Override
