@@ -1,6 +1,6 @@
 messages:
   # The template MOTD should work fine if there's only one line used in bungeecord's config.
-  motd: '${motd}\n${color}${online}/${total} servers are online'
+  motd: '${motd}\n${color}${online}/${total} servers online'
   command: '${color}${online}/${total} servers are online'
   no_perms: '&cYou do not have permission to do that!'
   reload_finished: 'Reloading configuration file finished.'
