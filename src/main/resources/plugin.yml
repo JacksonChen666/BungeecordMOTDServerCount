@@ -1,7 +1,8 @@
-name: ${project.name}
-version: ${project.version}
-author: ${author}
-main: ${mainClass}
+name: BungeecordMOTDServerCount
+version: @plugin.version@
+author: JacksonChen666
+main: com.jacksonchen666.bungeecordmotdservercount.BungeecordMOTDServerCount
+api-version: 1.16
 
 commands:
   serversonline:
