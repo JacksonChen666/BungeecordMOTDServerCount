@@ -2,15 +2,20 @@ messages:
   # The template MOTD should work fine if there's only one line used in bungeecord's config.
   motd: '${motd}\n${color}${online}/${total} servers are online'
   command: '${color}${online}/${total} servers are online'
+  no_perms: '&cYou do not have permission to do that!'
+  reload_finished: 'Reloading configuration file finished.'
 
 settings:
   # Set amount of seconds to keep the last results.
   cache_time: 60
   # colors for ${color} (depending on the percentage of servers online)
   colors:
-    # in_betweens has starting value and ending value
-    in_betweens: {0: 24, 25: 74, 75: 100}
-    # all below should be the key of the dictionary, or else it's ignored.
-    0: red
-    25: yellow
-    75: green
+    percent_0:
+      end: 24
+      color: red
+    percent_25:
+      end: 74
+      color: yellow
+    percent_75:
+      end: 100
+      color: green

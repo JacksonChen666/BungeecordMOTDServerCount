@@ -13,3 +13,10 @@ permissions:
   BungeecordMOTDServerCount.user:
     default: true
     description: Joe's permission.
+  BungeecordMOTDServerCount.admin:
+    default: op
+    description: Admin's permisison.
+    children:
+      BungeecordMOTDServerCount.reload: true
+  BungeecordMOTDServerCount.reload:
+    description: Reload plugin config permission.

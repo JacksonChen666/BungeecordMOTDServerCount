@@ -50,7 +50,7 @@ public class BungeecordMOTDServerCount extends Plugin {
         }
     }
 
-    public void saveConfig() {
+    void saveConfig() {
         try {
             ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, new File(getDataFolder(), "config.yml"));
         }
@@ -59,7 +59,7 @@ public class BungeecordMOTDServerCount extends Plugin {
         }
     }
 
-    public Configuration loadConfig() {
+    Configuration loadConfig() {
         try {
             return ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "config.yml"));
         }

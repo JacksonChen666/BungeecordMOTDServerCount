@@ -19,6 +19,16 @@ public class ServersOnlineCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
+        if (args.length >= 1 && args[0].equals("reload")) {
+            if (sender.hasPermission("BungeecordMOTDServerCount.reload")) {
+                plugin.onLoad();
+                sender.sendMessage(new TextComponent(ChatColors.color(plugin.getConfig().getString("messages.reload_finished"))));
+            }
+            else {
+                sender.sendMessage(new TextComponent(ChatColors.color(plugin.getConfig().getString("messages.no_perms"))));
+            }
+            return;
+        }
         int serverAmount = plugin.getProxy().getServers().size();
         int onlineAmount = plugin.getCountManager().serversOnline();
         float percentOnline = Float.parseFloat(String.valueOf(onlineAmount)) / Float.parseFloat(String.valueOf(serverAmount));
