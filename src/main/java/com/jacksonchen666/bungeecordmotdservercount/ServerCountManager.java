@@ -26,11 +26,9 @@ public class ServerCountManager implements Listener {
     }
 
     public final String getMessage(String toReplace) {
-        int serverAmount = 1000;
-        //        int serverAmount = plugin.getProxy().getServers().size();
-        int onlineAmount = (int) (Math.random() * serverAmount + 1);
-        //        int onlineAmount = serversOnline();
-        int percentOnline = onlineAmount / serverAmount * 100;
+        int serverAmount = plugin.getProxy().getServers().size();
+        int onlineAmount = serversOnline();
+        int percentOnline = (int) (Float.parseFloat(String.valueOf(onlineAmount)) / Float.parseFloat(String.valueOf(serverAmount)) * 100);
         String chosen = plugin.getColorsConfig().stream().filter(setting -> percentOnline >= setting.start && percentOnline <= setting.end).findFirst().map(setting -> setting.color).orElse(ChatColor.WHITE.toString());
         return ChatColors.color(toReplace.replace("${total}", String.valueOf(serverAmount)).replace("${online}", String.valueOf(onlineAmount)).replace("${color}", chosen));
     }
