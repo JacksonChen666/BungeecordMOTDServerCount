@@ -4,18 +4,17 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
-import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
 
 import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ServerCountManager implements Listener {
-    private final Plugin plugin;
+    private final BungeecordMOTDServerCount plugin;
     private LocalTime lastCheckTime = LocalTime.now();
     private int lastCheck = -1;
 
-    public ServerCountManager(Plugin plugin) {
+    public ServerCountManager(BungeecordMOTDServerCount plugin) {
         this.plugin = plugin;
     }
 
@@ -26,7 +25,7 @@ public class ServerCountManager implements Listener {
         int onlineAmount = serversOnline();
         float percentOnline = Float.parseFloat(String.valueOf(onlineAmount)) / Float.parseFloat(String.valueOf(serverAmount));
         String chosen = (percentOnline > 0.5 ? ChatColor.GREEN : percentOnline == 0.5 ? ChatColor.YELLOW : ChatColor.DARK_RED).toString();
-        ping.setDescription(BungeecordMOTDServerCount.config.getString("messages.motd")
+        ping.setDescription(plugin.getConfig().getString("messages.motd")
                 .replace("${motd}", ping.getDescription())
                 .replace("${total}", String.valueOf(serverAmount))
                 .replace("${online}", String.valueOf(onlineAmount))

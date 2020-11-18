@@ -11,7 +11,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 public class BungeecordMOTDServerCount extends Plugin {
-    static Configuration config;
+    private Configuration config;
+    private ServerCountManager countManager;
 
     @Override
     public void onLoad() {
@@ -62,5 +63,13 @@ public class BungeecordMOTDServerCount extends Plugin {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ServerCountManager getCountManager() {
+        return countManager;
+    }
+
+    Configuration getConfig() {
+        return config;
     }
 }
