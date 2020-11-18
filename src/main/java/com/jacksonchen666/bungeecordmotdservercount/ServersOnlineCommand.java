@@ -1,6 +1,5 @@
 package com.jacksonchen666.bungeecordmotdservercount;
 
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
@@ -29,13 +28,6 @@ public class ServersOnlineCommand extends Command {
             }
             return;
         }
-        int serverAmount = plugin.getProxy().getServers().size();
-        int onlineAmount = plugin.getCountManager().serversOnline();
-        float percentOnline = Float.parseFloat(String.valueOf(onlineAmount)) / Float.parseFloat(String.valueOf(serverAmount));
-        String chosen = plugin.getColorsConfig().stream().filter(setting -> percentOnline >= setting.start / 100f && Float.parseFloat(String.valueOf(setting.end)) / 100f < percentOnline).findFirst().map(setting -> setting.color).orElse(ChatColor.WHITE.toString());
-        sender.sendMessage(new TextComponent(ChatColors.color(plugin.getConfig().getString("messages.command")
-                .replace("${total}", String.valueOf(serverAmount))
-                .replace("${online}", String.valueOf(onlineAmount))
-                .replace("${color}", chosen))));
+        sender.sendMessage(new TextComponent(plugin.getCountManager().getMessage(plugin.getConfig().getString("messages.command"))));
     }
 }

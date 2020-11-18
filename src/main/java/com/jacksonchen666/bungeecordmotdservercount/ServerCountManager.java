@@ -21,17 +21,18 @@ public class ServerCountManager implements Listener {
     @EventHandler
     public void onPing(ProxyPingEvent e) {
         ServerPing ping = e.getResponse();
-        int serverAmount = plugin.getProxy().getServers().size();
-        int onlineAmount = serversOnline();
-        float percentOnline = Float.parseFloat(String.valueOf(onlineAmount)) / Float.parseFloat(String.valueOf(serverAmount));
-        String chosen = (percentOnline > 0.5 ? ChatColor.GREEN : percentOnline == 0.5 ? ChatColor.YELLOW : ChatColor.DARK_RED).toString();
-        ping.setDescription(plugin.getConfig().getString("messages.motd")
-                .replace("${motd}", ping.getDescription())
-                .replace("${total}", String.valueOf(serverAmount))
-                .replace("${online}", String.valueOf(onlineAmount))
-                .replace("${color}", chosen)
-                .replaceAll("\\\\n", "\n"));
+        ping.setDescription(getMessage(plugin.getConfig().getString("messages.motd")).replace("${motd}", ping.getDescription()).replaceAll("\\\\n", "\n"));
         e.setResponse(ping);
+    }
+
+    public final String getMessage(String toReplace) {
+        int serverAmount = 1000;
+        //        int serverAmount = plugin.getProxy().getServers().size();
+        int onlineAmount = (int) (Math.random() * serverAmount + 1);
+        //        int onlineAmount = serversOnline();
+        int percentOnline = onlineAmount / serverAmount * 100;
+        String chosen = plugin.getColorsConfig().stream().filter(setting -> percentOnline >= setting.start && percentOnline <= setting.end).findFirst().map(setting -> setting.color).orElse(ChatColor.WHITE.toString());
+        return ChatColors.color(toReplace.replace("${total}", String.valueOf(serverAmount)).replace("${online}", String.valueOf(onlineAmount)).replace("${color}", chosen));
     }
 
     public final int serversOnline() {
