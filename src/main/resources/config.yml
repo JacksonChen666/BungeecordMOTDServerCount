@@ -11,11 +11,11 @@ settings:
   # colors for ${color} (depending on the percentage of servers online)
   colors:
     percent_0:
-      end: 24
+      end: 0
       color: red
-    percent_25:
-      end: 74
+    percent_1:
+      end: 49
       color: yellow
-    percent_75:
+    percent_50:
       end: 100
       color: green
