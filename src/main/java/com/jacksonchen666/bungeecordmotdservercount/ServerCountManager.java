@@ -35,7 +35,7 @@ public class ServerCountManager implements Listener {
     }
 
     public final int serversOnline() {
-        if (lastCheckTime.isAfter(LocalTime.now()) && lastCheck != -1) {
+        if (lastCheckTime.isAfter(LocalTime.now().plusSeconds(plugin.getConfig().getInt("settings.cache_time"))) && lastCheck != -1) {
             return lastCheck;
         }
         AtomicInteger amountOnline = new AtomicInteger();
