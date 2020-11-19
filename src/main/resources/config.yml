@@ -1,6 +1,7 @@
 messages:
   # The template MOTD should work fine if there's only one line used in bungeecord's config.
   motd: '${motd}\n${color}${online}/${total} servers online'
+  # For when the command is triggered.
   command: '${color}${online}/${total} servers are online'
   no_perms: '&cYou do not have permission to do that!'
   reload_finished: 'Reloading configuration file finished.'
@@ -8,9 +9,10 @@ messages:
 settings:
   # Set amount of seconds to keep the last results.
   cache_time: 60
-  # ping timeout in ms
+  # Ping timeout in ms (keep it at least 250 ms for local, and at least 1000 ms for outside)
   ping_timeout: 1000
-  # colors for ${color} (depending on the percentage of servers online)
+  # Colors for ${color} (depending on the percentage of servers online)
+  # percent_ is required before the actual number. Starting it with anything else is ignored.
   colors:
     percent_0:
       end: 0
