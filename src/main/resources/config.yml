@@ -8,6 +8,8 @@ messages:
 settings:
   # Set amount of seconds to keep the last results.
   cache_time: 60
+  # ping timeout in ms
+  ping_timeout: 1000
   # colors for ${color} (depending on the percentage of servers online)
   colors:
     percent_0:

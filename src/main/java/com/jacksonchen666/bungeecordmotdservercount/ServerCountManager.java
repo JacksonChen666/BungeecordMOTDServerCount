@@ -15,9 +15,11 @@ public class ServerCountManager implements Listener {
     private final BungeecordMOTDServerCount plugin;
     private LocalTime nextCheckTime = LocalTime.now();
     private int lastCheck = 0;
+    public final int pingTimeout;
 
     public ServerCountManager(BungeecordMOTDServerCount plugin) {
         this.plugin = plugin;
+        pingTimeout = plugin.getConfig().getInt("settings.ping_timeout");
     }
 
     @EventHandler
@@ -47,7 +49,7 @@ public class ServerCountManager implements Listener {
     private boolean ping(InetSocketAddress address) {
         Socket socket = new Socket();
         try {
-            socket.connect(address, 1000);
+            socket.connect(address, pingTimeout);
             socket.close();
             return true;
         }
