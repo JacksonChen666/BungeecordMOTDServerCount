@@ -25,6 +25,7 @@ public class BungeecordMOTDServerCount extends Plugin {
         saveDefaultConfig();
         config = loadConfig();
         Configuration tempColorConfig = config.getSection("settings.colors");
+        //noinspection SpellCheckingInspection
         List<String> startings = tempColorConfig.getKeys().stream().filter(item -> item.startsWith("percent_")).collect(Collectors.toList());
         for (String start : startings) {
             String color = tempColorConfig.getString(start + ".color");

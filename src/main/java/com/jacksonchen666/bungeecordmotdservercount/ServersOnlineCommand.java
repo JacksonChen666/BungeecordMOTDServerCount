@@ -12,6 +12,7 @@ public class ServersOnlineCommand extends Command {
     }
 
     public ServersOnlineCommand(BungeecordMOTDServerCount plugin) {
+        //noinspection SpellCheckingInspection
         this("serversonline");
         this.plugin = plugin;
     }
