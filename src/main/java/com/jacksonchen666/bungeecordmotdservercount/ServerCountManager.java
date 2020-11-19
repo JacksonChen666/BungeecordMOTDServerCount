@@ -6,13 +6,15 @@ import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.time.LocalTime;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ServerCountManager implements Listener {
     private final BungeecordMOTDServerCount plugin;
-    private LocalTime lastCheckTime = LocalTime.now();
-    private int lastCheck = -1;
+    private LocalTime nextCheckTime = LocalTime.now();
+    private int lastCheck = 0;
 
     public ServerCountManager(BungeecordMOTDServerCount plugin) {
         this.plugin = plugin;
@@ -34,15 +36,24 @@ public class ServerCountManager implements Listener {
     }
 
     public final int serversOnline() {
-        if (lastCheckTime.isAfter(LocalTime.now().plusSeconds(plugin.getConfig().getInt("settings.cache_time"))) && lastCheck != -1) {
+        if (nextCheckTime.isAfter(LocalTime.now()) && lastCheck != 0) {
             return lastCheck;
         }
-        AtomicInteger amountOnline = new AtomicInteger();
-        plugin.getProxy().getServers().forEach((s, serverInfo) -> serverInfo.ping((result, error) -> {
-            if (error != null) amountOnline.incrementAndGet();
-        }));
-        lastCheckTime = LocalTime.now();
-        lastCheck = amountOnline.get();
+        nextCheckTime = LocalTime.now().plusSeconds(plugin.getConfig().getInt("settings.cache_time"));
+        lastCheck = (int) plugin.getProxy().getServers().values().stream().filter(server -> ping(server.getAddress())).count();
         return lastCheck;
+    }
+
+    private boolean ping(InetSocketAddress address) {
+        Socket socket = new Socket();
+        try {
+            socket.connect(address, 1000);
+            socket.close();
+            return true;
+        }
+        catch (IOException ignored) {
+
+        }
+        return false;
     }
 }
