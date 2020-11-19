@@ -53,7 +53,6 @@ public class BungeecordMOTDServerCount extends Plugin {
 
     @Override
     public void onDisable() {
-        saveConfig();
         colorsConfig.clear();
     }
 
@@ -74,14 +73,16 @@ public class BungeecordMOTDServerCount extends Plugin {
         }
     }
 
-    void saveConfig() {
-        try {
-            ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, new File(getDataFolder(), "config.yml"));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    // --Commented out by Inspection START (2020. 11. 19. 14:08:40:419):
+    //    void saveConfig() {
+    //        try {
+    //            ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, new File(getDataFolder(), "config.yml"));
+    //        }
+    //        catch (IOException e) {
+    //            e.printStackTrace();
+    //        }
+    //    }
+    // --Commented out by Inspection STOP (2020. 11. 19. 14:08:40:419)
 
     Configuration loadConfig() {
         try {
