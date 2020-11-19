@@ -41,7 +41,7 @@ jobs:
           tag_name: ${{ steps.get_version.outputs.VERSION }}
           release_name: "${{ steps.get_version.outputs.VERSION }}: "
           body: |
-            In this new release, there are following things done:
+            In this new release, the following things were things done:
 
             -
 
